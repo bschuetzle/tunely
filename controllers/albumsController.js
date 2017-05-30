@@ -1,6 +1,7 @@
 
 
 var db = require('../models');
+var controllers = require('../controllers');
 
 // GET /api/albums
 function index(req, res) {
@@ -15,6 +16,14 @@ function index(req, res) {
 // POST /api/albums
 function create(req, res) {
   // create an album based on request body and send it back as JSON
+  var newAlbum = new db.Album(req.body);
+  newAlbum.save(function(err, album) {
+    console.log("checking out req.body", req.body);
+    if(err) {
+      console.log('error to create album', err);
+    }
+    res.json(album)
+  });
 }
 
 // GET /api/albums/:albumId

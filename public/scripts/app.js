@@ -53,7 +53,18 @@ $(document).ready(function() {
     error: handleError
     });
 
+  $.ajax({
+    method: 'POST',
+    url: '/api/albums',
+    data: $('.music-search').serialize(),
+    success: newAlbumSuccess,
+    error: newAlbumError
+  });
 
+  // reset form after submission
+
+
+// function success and error for GET
   function handleSuccess (albums) {
     albums.forEach(function(album) {
       renderAlbum(album);
@@ -65,6 +76,16 @@ $(document).ready(function() {
   }
 
 });
+
+// function success and error for PUT
+  function newAlbumSuccess (album) {
+    console.log("yay! new album created.", album);
+    $('.music-search')[0].reset();
+
+  };
+  function newAlbumError (err) {
+    console.log("failure to create new album.")
+  }
 
 
 

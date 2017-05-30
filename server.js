@@ -30,7 +30,8 @@ app.get('/api', controllers.api.index);
 // "GET" api for albums
 app.get('/api/albums', controllers.albums.index);
 
-
+// "POST" api for albums
+app.post('/api/albums', controllers.albums.create)
 
 
 /**********
