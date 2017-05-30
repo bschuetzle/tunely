@@ -2,9 +2,7 @@
 var express = require('express'), app = express();
 var controllers = require('./controllers');
 
-app.get('/', function homepage(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
-});
+
 
 app.use(express.static('public'));
 
@@ -13,19 +11,26 @@ app.use(express.static('public'));
  **********/
  var db = require('./models');
 
+
+
 /**********
  * ROUTES *
  **********/
 
 
-app.get('/', function apiIndex(req, res) {
-  res.json({
-    message: "hello!"
-  });
+app.get('/', function homepage(req, res) {
+   res.sendFile(__dirname + '/views/index.html');
 });
+
+
 
 // "GET" api
 app.get('/api', controllers.api.index);
+
+// "GET" api for albums
+app.get('/api/albums', controllers.albums.index);
+
+
 
 
 /**********
