@@ -1,7 +1,10 @@
 
 var express = require('express'), app = express();
 var controllers = require('./controllers');
+var bodyParser = require('body-parser');
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(express.static('public'));

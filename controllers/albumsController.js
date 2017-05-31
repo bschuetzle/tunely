@@ -16,9 +16,16 @@ function index(req, res) {
 // POST /api/albums
 function create(req, res) {
   // create an album based on request body and send it back as JSON
+  // split at comma and remove and trailing space
+  console.log("checking out req.body", req.body);
+  console.log("checking out req.query", req.query);
+
+  var genres = req.body.genres.split(',').map(function(item) { return item.trim(); } );
+  req.body.genres = genres;
+
   var newAlbum = new db.Album(req.body);
   newAlbum.save(function(err, album) {
-    console.log("checking out req.body", req.body);
+
     if(err) {
       console.log('error to create album', err);
     }

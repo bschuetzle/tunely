@@ -37,6 +37,7 @@ sampleAlbums.push({
 
 
 
+
 $(document).ready(function() {
 
   console.log('app.js loaded!');
@@ -53,15 +54,35 @@ $(document).ready(function() {
     error: handleError
     });
 
-  $.ajax({
-    method: 'POST',
-    url: '/api/albums',
-    data: $('.music-search').serialize(),
-    success: newAlbumSuccess,
-    error: newAlbumError
-  });
+
 
   // reset form after submission
+
+  $("#single-button").on("click", function() {
+    console.log("submit clicked");
+    console.log("form data serialized: ", $('.music-search').serialize());
+
+    $.ajax({
+      method: 'POST',
+      url: '/api/albums',
+      data: $('.music-search').serialize(),
+      success: newAlbumSuccess,
+      error: newAlbumError
+    });
+
+    // function success and error for PUT
+    function newAlbumSuccess (album) {
+      console.log("yay! new album created.", album);
+      $('.music-search')[0].reset();
+
+    };
+
+    function newAlbumError (err) {
+      console.log("failure to create new album.")
+    }
+
+
+  })
 
 
 // function success and error for GET
@@ -77,21 +98,14 @@ $(document).ready(function() {
 
 });
 
-// function success and error for PUT
-  function newAlbumSuccess (album) {
-    console.log("yay! new album created.", album);
-    $('.music-search')[0].reset();
 
-  };
-  function newAlbumError (err) {
-    console.log("failure to create new album.")
-  }
 
 
 
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
-  console.log('rendering album:', album);
+
+  //console.log('rendering album:', album);
 
   var html = `
     <div class="row album">
